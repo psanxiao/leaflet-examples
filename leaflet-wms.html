@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <title>Leaflet Oleiros con GeoJSON y WMS</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/toolbar/prism-toolbar.min.css" />
+
+  <style>
+      :root {
+          --bg-color: #1a1a2e;
+          --card-bg-color: rgba(22, 22, 40, 0.7);
+          --border-color: rgba(0, 170, 255, 0.3);
+      }
+      html, body {
+          height: 100%;
+          margin: 0;
+          padding: 0;
+          font-family: 'Poppins', sans-serif;
+          background: linear-gradient(to bottom right, rgba(45, 55, 85, 0.7), var(--bg-color));
+          color: #e0e0e0;
+      }
+      .main-container {
+          display: flex;
+          flex-direction: column;
+          height: 100%;
+          padding: 1.5rem;
+          gap: 1.5rem;
+      }
+      h2 {
+          text-align: center;
+          margin: 0 0 1rem 0;
+          flex-shrink: 0;
+          color: #fff;
+      }
+      .card {
+          background-color: var(--card-bg-color);
+          border: 1px solid var(--border-color);
+          border-radius: 15px;
+          backdrop-filter: blur(10px);
+          -webkit-backdrop-filter: blur(10px);
+          box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+          overflow: hidden;
+          display: flex;
+      }
+      .map-card {
+          flex: 1 1 55%;
+      }
+      .code-card {
+          flex: 1 1 45%;
+      }
+      #map, .code-container {
+          width: 100%;
+          height: 100%;
+      }
+      .code-container {
+          overflow: auto;
+      }
+      pre[class*="language-"] {
+          font-size: 0.9em;
+          margin: 0;
+          height: 100%;
+      }
+      /* Forzar la visibilidad constante del botón de copiar */
+      div.code-toolbar .toolbar {
+          opacity: 1;
+      }
+  </style>
+</head>
+<body>
+
+<div class="main-container">
+    <h2>Mapa de Oleiros con GeoJSON y WMS</h2>
+    
+    <div class="card map-card">
+        <div id="map"></div>
+    </div>
+
+    <div class="card code-card">
+        <div class="code-container">
+            <pre data-copy="Copiar" data-copy-success="Copiado!"><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+  &lt;meta charset="utf-8" /&gt;
+  &lt;title&gt;Leaflet Oleiros con GeoJSON y WMS&lt;/title&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+
+  &lt;!-- Estilos de Leaflet --&gt;
+  &lt;link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" /&gt;
+  &lt;style&gt;
+    #map { height: 600px; }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;h2&gt;Mapa de Oleiros con GeoJSON y WMS&lt;/h2&gt;
+&lt;div id="map"&gt;&lt;/div&gt;
+
+&lt;!-- Librería Leaflet --&gt;
+&lt;script src="https://unpkg.com/leaflet/dist/leaflet.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+  // Inicializar el mapa centrado en Oleiros
+  var map = L.map('map').setView([43.36, -8.35], 13);
+
+  // Capa WMS del PNOA (IGN)
+  var pnoa = L.tileLayer.wms("https://www.ign.es/wms-inspire/pnoa-ma", {
+    layers: "OI.OrthoimageCoverage",
+    format: "image/png",
+    transparent: false,
+    attribution: "PNOA &amp;copy; IGN"
+  }).addTo(map);
+
+  // Cargar el GeoJSON con puntos de Oleiros
+  fetch('oleiros.geojson')
+    .then(response =&gt; response.json())
+    .then(data =&gt; {
+      var puntos = L.geoJSON(data, {
+        pointToLayer: function (feature, latlng) {
+          return L.marker(latlng);
+        },
+        onEachFeature: function (feature, layer) {
+            if (feature.properties &amp;&amp; feature.properties.name) {
+		layer.bindPopup("Nombre: " + feature.properties.name);
+            }
+         }
+      }).addTo(map);
+
+      // Ajustar el zoom al contenido del GeoJSON
+      map.fitBounds(puntos.getBounds());
+    });
+
+&lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+        </div>
+    </div>
+</div>
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script>
+  var map = L.map('map').setView([43.36, -8.35], 13);
+  var pnoa = L.tileLayer.wms("https://www.ign.es/wms-inspire/pnoa-ma", {
+    layers: "OI.OrthoimageCoverage",
+    format: "image/png",
+    transparent: false,
+    attribution: "PNOA © IGN"
+  }).addTo(map);
+  fetch('oleiros.geojson')
+    .then(response => response.json())
+    .then(data => {
+      var puntos = L.geoJSON(data, {
+        pointToLayer: function (feature, latlng) {
+          return L.marker(latlng);
+        },
+        onEachFeature: function (feature, layer) {
+            if (feature.properties && feature.properties.name) {
+		layer.bindPopup("Nombre: " + feature.properties.name);
+            }
+         }
+      }).addTo(map);
+      map.fitBounds(puntos.getBounds());
+    });
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markup.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/toolbar/prism-toolbar.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js"></script>
+<script>Prism.highlightAll();</script>
+
+</body>
+</html>

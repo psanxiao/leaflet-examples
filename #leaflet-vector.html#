@@ -1,0 +1,21 @@
+hivo
+fetch('oleiros.geojson')
+.then(response => response.json())
+.then(data => {
+L.geoJSON(data, {
+style: {
+color: 'blue',
+weight: 2,
+fillOpacity: 0.1
+},
+onEachFeature: function (feature, layer) {
+if (feature.properties && feature.properties.name) {
+layer.bindPopup("Nombre: " + feature.properties.name);
+}
+}
+}).addTo(map);
+});
+</script>
+
+</body>
+</html>
