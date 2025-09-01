@@ -1,0 +1,50 @@
+{
+  "type": "FeatureCollection",
+  "name": "oleiros_puntos",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Playa de Santa Cristina",
+        "tipo": "Playa"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.378631, 43.339596]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Parque de José Martí",
+        "tipo": "Parque"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.378567, 43.336728]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Faro de Mera",
+        "tipo": "Faro"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.354416, 43.383347]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Playa de Bastiagueiro",
+        "tipo": "Playa"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.362489, 43.340981]
+      }
+    }
+  ]
+}

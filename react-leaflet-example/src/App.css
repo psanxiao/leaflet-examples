@@ -1,0 +1,109 @@
+:root {
+    --bg-color: #1a1a2e;
+    --card-bg-color: rgba(22, 22, 40, 0.7);
+    --primary-color: #00aaff; /* Color de acento principal */
+    --border-color: rgba(0, 170, 255, 0.3);
+    --text-color: #e0e0e0;
+}
+
+html, body, #root {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif; /* Assuming Poppins is available or loaded elsewhere */
+    background: linear-gradient(to bottom right, rgba(45, 55, 85, 0.7), var(--bg-color));
+    color: var(--text-color);
+    box-sizing: border-box;
+}
+
+.main-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 1.5rem;
+    gap: 1.5rem;
+    box-sizing: border-box;
+}
+
+h1 {
+    text-align: center;
+    margin: 0 0 1rem 0;
+    flex-shrink: 0;
+    color: #fff;
+}
+
+.info-text {
+    text-align: center;
+    color: var(--text-color);
+    opacity: 0.8;
+    margin-top: -1rem;
+    margin-bottom: 1.5rem;
+}
+
+.info-text a {
+    color: var(--primary-color);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.info-text a:hover {
+    text-decoration: underline;
+}
+
+.content-container {
+    display: flex;
+    flex: 1;
+    gap: 1.5rem;
+    min-height: 0; /* Important for flexbox children with overflow */
+}
+
+.card {
+    background-color: var(--card-bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.map-card {
+    flex: 1 1 55%;
+}
+
+/* Estilos específicos para los iconos personalizados */
+.custom-marker {
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 2px solid #007bff;
+    border-radius: 50%;
+    width: 30px !important;
+    height: 30px !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+.custom-marker i {
+    color: #007bff;
+    font-size: 16px;
+}
+/* Colores específicos para tipos */
+.custom-marker.playa i { color: #00aaff; } /* Azul claro */
+.custom-marker.parque i { color: #28a745; } /* Verde */
+.custom-marker.faro i { color: #ffc107; } /* Amarillo */
+
+.code-card {
+    flex: 1 1 45%;
+}
+
+.code-card pre {
+    margin: 0;
+    height: 100%;
+}
+
+/* Ensure Prism's copy button is visible */
+div.code-toolbar .toolbar {
+    opacity: 1 !important;
+}
