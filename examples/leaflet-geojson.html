@@ -93,7 +93,7 @@
 
 <div class="main-container">
     <h1>Mapa de Oleiros con GeoJSON</h1>
-    <p class="info-text">Este ejemplo carga y visualiza los datos del fichero <a href="oleiros.geojson" download>oleiros.geojson</a>.</p>
+    <p class="info-text">Este ejemplo carga y visualiza los datos del fichero <a href="../data/oleiros.geojson" download>oleiros.geojson</a>.</p>
     
     <div class="card map-card">
         <div id="map"></div>
@@ -127,7 +127,7 @@
     }).addTo(map);
 
     // Cargar un GeoJSON desde archivo
-    fetch('oleiros.geojson')
+    fetch('../data/oleiros.geojson')
         .then(response =&gt; response.json())
         .then(data =&gt; {
             L.geoJSON(data, {
@@ -158,7 +158,7 @@
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; OpenStreetMap contributors'
     }).addTo(map);
-    fetch('oleiros.geojson')
+    fetch('../data/oleiros.geojson')
         .then(response => response.json())
         .then(data => {
             L.geoJSON(data, {

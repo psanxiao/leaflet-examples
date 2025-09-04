@@ -121,7 +121,7 @@
 
 <div class="main-container">
     <h1>Marcadores Personalizados con Font Awesome</h1>
-    <p class="info-text">Este ejemplo carga y visualiza los datos del fichero <a href="oleiros.geojson" download>oleiros.geojson</a>.</p>
+    <p class="info-text">Este ejemplo carga y visualiza los datos del fichero <a href="../data/oleiros.geojson" download>oleiros.geojson</a>.</p>
     
     <div class="card map-card">
         <div id="map"></div>
@@ -199,7 +199,7 @@
     }).addTo(map);
 
     // Cargar el GeoJSON
-    fetch('oleiros.geojson')
+    fetch('../data/oleiros.geojson')
         .then(response =&gt; response.json())
         .then(data =&gt; {
             var markers = L.geoJSON(data, {
@@ -260,7 +260,7 @@
     }).addTo(map);
 
     // Cargar el GeoJSON
-    fetch('oleiros.geojson')
+    fetch('../data/oleiros.geojson')
         .then(response => response.json())
         .then(data => {
             var markers = L.geoJSON(data, {
